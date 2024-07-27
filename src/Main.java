@@ -18,10 +18,12 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your name: ");
-        String s = sc.nextLine();
-        System.out.println("Lol "+s);
+        
+        // Taking simple input
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Enter your name: ");
+//        String s = sc.nextLine();
+//        System.out.println("Lol "+s);
         MainFrame ob = new MainFrame();
         ob.init();
     }    
