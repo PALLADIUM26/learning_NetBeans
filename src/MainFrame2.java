@@ -96,6 +96,7 @@ public class MainFrame2 extends javax.swing.JFrame {
         btnAdd.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add.png"))); // NOI18N
         btnAdd.setText("Add");
+        btnAdd.setFocusable(false);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -105,6 +106,7 @@ public class MainFrame2 extends javax.swing.JFrame {
         btnClr.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
         btnClr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clear.png"))); // NOI18N
         btnClr.setText("Clear");
+        btnClr.setFocusable(false);
         btnClr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClrActionPerformed(evt);
@@ -166,6 +168,7 @@ public class MainFrame2 extends javax.swing.JFrame {
         btnDlt.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
         btnDlt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delete.png"))); // NOI18N
         btnDlt.setText("Delete");
+        btnDlt.setFocusable(false);
         btnDlt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDltActionPerformed(evt);
