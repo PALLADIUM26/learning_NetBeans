@@ -33,7 +33,12 @@ public class SendMail extends javax.swing.JFrame {
     private void initComponents() {
 
         btnSend = new javax.swing.JButton();
-        tf = new javax.swing.JTextField();
+        tfReceiver = new javax.swing.JTextField();
+        tfSubject = new javax.swing.JTextField();
+        tfText = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,6 +48,12 @@ public class SendMail extends javax.swing.JFrame {
                 btnSendActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("To:");
+
+        jLabel2.setText("Subject:");
+
+        jLabel3.setText("Text:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,15 +66,32 @@ public class SendMail extends javax.swing.JFrame {
                         .addComponent(btnSend))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tfReceiver, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                                .addComponent(tfSubject)
+                                .addComponent(tfText))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfReceiver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tfText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(btnSend)
                 .addGap(43, 43, 43))
         );
@@ -73,86 +101,50 @@ public class SendMail extends javax.swing.JFrame {
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
-        String txt = tf.getText();
+        String receipient = tfReceiver.getText();
+        String subject = tfSubject.getText();
+        String text = tfText.getText();
         
-        String host="mail.javatpoint.com";  
-        final String user="sonoojaiswal@javatpoint.com";//change accordingly  
-        final String password="xxxxx";//change accordingly  
+        String sender = "your gmail";//change accordingly  
+        String appPassword = "app password"; //change accordingly 
+//        String host = "localhost";//or IP address  
 
-        String to="sonoojaiswal1987@gmail.com";//change accordingly  
-
-         //Get the session object  
-         Properties props = new Properties();  
-         props.put("mail.smtp.host",host);  
-         props.put("mail.smtp.auth", "true");  
-
-         Session session = Session.getDefaultInstance(props,  
-          new javax.mail.Authenticator() {  
-            protected PasswordAuthentication getPasswordAuthentication() {  
-          return new PasswordAuthentication(user,password);  
-            }  
-          });  
-
-         //Compose the message  
-          try {  
-           MimeMessage message = new MimeMessage(session);  
-           message.setFrom(new InternetAddress(user));  
-           message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));  
-           message.setSubject("javatpoint");  
-           message.setText("This is simple program of sending email using JavaMail API");  
-
-          //send the message  
-           Transport.send(message);  
-
-           System.out.println("message sent successfully...");  
-
-           } catch (MessagingException e) {e.printStackTrace();}
+        //Set the Properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
         
-        /*
-        // email ID of Recipient.
-        String recipient = "potaofy98@gmail.com"; 
-
-        // email ID of  Sender. 
-        String sender = "sender@gmail.com"; 
-
-        // using host as localhost 
-        String host = "127.0.0.1"; 
-
-        // Getting system properties 
-        Properties properties = System.getProperties(); 
-
-        // Setting up mail server 
-        properties.setProperty("mail.smtp.host", host); 
-
-        // creating session object to get properties 
-        Session session = Session.getDefaultInstance(properties); 
-
-        try 
-        { 
-           // MimeMessage object. 
-           MimeMessage message = new MimeMessage(session); 
-
-           // Set From Field: adding senders email to from field. 
-           message.setFrom(new InternetAddress(sender)); 
-
-           // Set To Field: adding recipient's email to from field. 
-           message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); 
-
-           // Set Subject: subject of the email 
-           message.setSubject("This is Subject"); 
-
-           // set body of the email. 
-           message.setText("This is a test mail"); 
-
-           // Send email. 
-           Transport.send(message); 
-           System.out.println("Mail successfully sent"); 
-        } 
-        catch (MessagingException mex)  
-        { 
-           mex.printStackTrace(); 
+        Authenticator auth = new Authenticator() {
+            public PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(sender, appPassword);
+            }
+        };
+        
+        //Get the session object
+//        Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(from, password);
+//            }
+//        });
+        
+        Session session = Session.getInstance(properties, auth);
+        
+        //compose the message 
+        try {
+            MimeMessage message = new MimeMessage(session);  
+            message.setFrom(new InternetAddress(sender));
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(receipient));
+            message.setSubject(subject);
+            message.setText(text);
+            
+            // Send message 
+            Transport.send(message);
+            System.out.println("Mail successfully sent");
+        } catch(Exception e) {
+            System.out.println(e);
         }
-        */
     }//GEN-LAST:event_btnSendActionPerformed
 
     /**
@@ -192,6 +184,11 @@ public class SendMail extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSend;
-    private javax.swing.JTextField tf;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField tfReceiver;
+    private javax.swing.JTextField tfSubject;
+    private javax.swing.JTextField tfText;
     // End of variables declaration//GEN-END:variables
 }
