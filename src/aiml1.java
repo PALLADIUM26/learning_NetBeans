@@ -1,3 +1,7 @@
+
+import java.awt.FileDialog;
+import java.awt.Frame;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,6 +16,7 @@ public class aiml1 extends javax.swing.JFrame {
     /**
      * Creates new form aiml1
      */
+    String path;
     public aiml1() {
         initComponents();
     }
@@ -38,6 +43,11 @@ public class aiml1 extends javax.swing.JFrame {
         jLabel1.setText("Choose an image:");
 
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         tfOp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,6 +58,11 @@ public class aiml1 extends javax.swing.JFrame {
         jLabel2.setText("Generated emotion:");
 
         btnFile.setText("Choose file");
+        btnFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFileActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Choose image file and detect emotion:");
 
@@ -98,6 +113,24 @@ public class aiml1 extends javax.swing.JFrame {
     private void tfOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfOpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfOpActionPerformed
+
+    private void btnFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileActionPerformed
+        // TODO add your handling code here:
+        FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+        dialog.setMode(FileDialog.LOAD);
+        dialog.setVisible(true);
+        String file = dialog.getFile();
+        dialog.dispose();
+        path = file;
+    }//GEN-LAST:event_btnFileActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        String result = "";
+        System.out.println(path + " chosen.");
+        // call test3.py for aiml implementation
+        tfOp.setText(result);
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**
      * @param args the command line arguments
