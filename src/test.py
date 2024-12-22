@@ -1,3 +1,5 @@
+# for sending whatsapp message
+
 import pywhatkit
 import datetime
 import os
