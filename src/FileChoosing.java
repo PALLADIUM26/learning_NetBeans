@@ -1,3 +1,7 @@
+
+import java.awt.FileDialog;
+import java.awt.Frame;
+
 //simple open various files using FileChooser
 
 /*
@@ -14,6 +18,7 @@ public class FileChoosing extends javax.swing.JFrame {
     /**
      * Creates new form FileChoosing
      */
+    String path;
     public FileChoosing() {
         initComponents();
     }
@@ -30,7 +35,6 @@ public class FileChoosing extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnFile = new javax.swing.JButton();
         btnSubmit = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         tfOp = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
@@ -39,10 +43,18 @@ public class FileChoosing extends javax.swing.JFrame {
         jLabel1.setText("Choose an image:");
 
         btnFile.setText("Choose file");
+        btnFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFileActionPerformed(evt);
+            }
+        });
 
         btnSubmit.setText("Submit");
-
-        jLabel2.setText("Generated emotion:");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         tfOp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,18 +70,15 @@ public class FileChoosing extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfOp, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(btnFile)
                         .addGap(18, 18, 18)
                         .addComponent(btnSubmit))
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(tfOp))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -82,11 +91,9 @@ public class FileChoosing extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(btnFile)
                     .addComponent(btnSubmit))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tfOp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(tfOp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,6 +102,22 @@ public class FileChoosing extends javax.swing.JFrame {
     private void tfOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfOpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfOpActionPerformed
+
+    private void btnFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileActionPerformed
+        // TODO add your handling code here:
+        FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+        dialog.setMode(FileDialog.LOAD);
+        dialog.setVisible(true);
+        String file = dialog.getFile();
+        dialog.dispose();
+        path = file;
+    }//GEN-LAST:event_btnFileActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        System.out.println(path + " chosen.");
+        tfOp.setText(path + " chosen.");
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,7 +158,6 @@ public class FileChoosing extends javax.swing.JFrame {
     private javax.swing.JButton btnFile;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField tfOp;
     // End of variables declaration//GEN-END:variables
