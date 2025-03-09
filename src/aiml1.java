@@ -1,6 +1,9 @@
 
-import java.awt.FileDialog;
-import java.awt.Frame;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import javax.swing.JFileChooser;
+import java.io.File;
+import javax.swing.filechooser.FileSystemView;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,7 +19,7 @@ public class aiml1 extends javax.swing.JFrame {
     /**
      * Creates new form aiml1
      */
-    String path;
+    String filePath;
     public aiml1() {
         initComponents();
     }
@@ -34,7 +37,7 @@ public class aiml1 extends javax.swing.JFrame {
         btnSubmit = new javax.swing.JButton();
         tfOp = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        btnFile = new javax.swing.JButton();
+        btnChoose = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,10 +60,10 @@ public class aiml1 extends javax.swing.JFrame {
 
         jLabel2.setText("Generated emotion:");
 
-        btnFile.setText("Choose file");
-        btnFile.addActionListener(new java.awt.event.ActionListener() {
+        btnChoose.setText("Choose file");
+        btnChoose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFileActionPerformed(evt);
+                btnChooseActionPerformed(evt);
             }
         });
 
@@ -82,7 +85,7 @@ public class aiml1 extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnFile)
+                                .addComponent(btnChoose)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnSubmit))))
                     .addGroup(layout.createSequentialGroup()
@@ -98,7 +101,7 @@ public class aiml1 extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(btnFile)
+                    .addComponent(btnChoose)
                     .addComponent(btnSubmit))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -114,21 +117,43 @@ public class aiml1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfOpActionPerformed
 
-    private void btnFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileActionPerformed
+    private void btnChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseActionPerformed
         // TODO add your handling code here:
-        FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
-        dialog.setMode(FileDialog.LOAD);
-        dialog.setVisible(true);
-        String file = dialog.getFile();
-        dialog.dispose();
-        path = file;
-    }//GEN-LAST:event_btnFileActionPerformed
+        JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        j.setCurrentDirectory(new File("."));
+        int result = j.showOpenDialog(j);
+        String path = "";
+        
+        if(result == JFileChooser.APPROVE_OPTION){
+            File selectedFile = j.getSelectedFile();
+            filePath = selectedFile.getAbsolutePath();
+        }
+    }//GEN-LAST:event_btnChooseActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         String result = "";
-        System.out.println(path + " chosen.");
+        System.out.println(filePath + " chosen.");
         // call test3.py for aiml implementation
+        try {
+            ProcessBuilder builder = new ProcessBuilder("python", "src\\test3.py", filePath);
+            Process process = builder.start();
+            
+            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+            BufferedReader br2 = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            
+            String lines = null;
+            while ((lines = br.readLine()) != null) {
+//                System.out.println(lines);
+                result = lines;
+            }
+//            while ((lines = br2.readLine()) != null) {
+//                System.out.println(lines);
+//            }
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+        
         tfOp.setText(result);
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -168,7 +193,7 @@ public class aiml1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFile;
+    private javax.swing.JButton btnChoose;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
